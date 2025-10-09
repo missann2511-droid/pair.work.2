@@ -5,3 +5,7 @@ text = ("Before departure, all students leaving for exchange studies should fill
         "A copy of the invitation letter from a host school - partner of GSOM SPbU has to be attached to the application.")
 
 start = text.find("(") + 1  
+end = text.find(", Tel.")
+address = text[start:end]
+
+print(address)
