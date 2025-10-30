@@ -1,0 +1,3 @@
+List 1: 2 smaillest: 1, 2
+List 2: 2 smaillest: 50, 75
+List 3: 2 smaillest: -10, -5
