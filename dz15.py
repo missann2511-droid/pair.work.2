@@ -1,32 +1,31 @@
 def cut_rod(prices, n):
-    """
-    Finds the list of cuts for the rod of length n to maximize profit.
-    Args:
-        prices (list): prices[i] -- price for a piece of length (i+1)
-        n (int): length of the rod
-    Returns:
-        tuple: (max_profit, cuts_list)
-    """
     dp = [0] * (n + 1)
     cuts = [0] * (n + 1)
+    
     for i in range(1, n + 1):
-        max_val = float('-inf')
+        max_val = 0
         for j in range(1, i + 1):
-            if max_val < prices[j - 1] + dp[i - j]:
-                max_val = prices[j - 1] + dp[i - j]
-                cuts[i] = j
+            if j - 1 < len(prices):
+                current = prices[j - 1] + dp[i - j]
+                if current > max_val:
+                    max_val = current
+                    cuts[i] = j
         dp[i] = max_val
         
-    res = []
-    length = n
-    while length > 0:
-        res.append(cuts[length])
-        length -= cuts[length]
+    result = []
+    remaining = n
+    while remaining > 0:
+        result.append(cuts[remaining])
+        remaining -= cuts[remaining]
 
-    return dp[n], res
+    return result
 
 prices = [1, 5, 8, 9, 10, 17, 17, 20]
 n = 8
-max_profit, cuts_list = cut_rod(prices, n)
-print("Maximum obtainable value:", max_profit)
-print("Recommended cuts (lengths):", cuts_list)
+cuts_list = cut_rod(prices, n)
+print("Recommended cuts:", cuts_list)
+
+total_value = 0
+for cut in cuts_list:
+    total_value += prices[cut - 1]
+print("Total value:", total_value)
